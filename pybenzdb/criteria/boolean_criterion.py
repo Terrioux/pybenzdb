@@ -1,8 +1,16 @@
+from pybenzdb.criteria.criterion import Criterion
+
+
 class Boolean_Criterion (Criterion):
-  """ This class allows for representing criterions based on Boolean value """
+  """ This class allows for representing criteria based on Boolean value """
 
   def __init__ (self, key: str, description: str):
-    """ initializes the criterion """
+    """ Initializes the criterion
+
+        Args:
+          key (str): The key describing the criterion
+          description (str): The description of the criterion
+    """
     super().__init__(key, description)
 
     self.__element =  w.BoundedIntText(value=1, min=0, max=1, layout={"width": "3.5em"})
@@ -16,7 +24,11 @@ class Boolean_Criterion (Criterion):
 
 
   def get_criterion (self) -> str:
-    """ returns the JSON string corresponding to the criterion, an empty string if the criterion is not set """
+    """ Returns the JSON string corresponding to the criterion, or an empty string if the criterion is not set
+
+        Returns:
+          str: The JSON string corresponding to the criterion or an empty string if the criterion is not set
+    """
     if self.__condition.value == "not set":
       return ""
     else:

@@ -1,20 +1,24 @@
+from pybenzdb.criteria.criterion import Criterion
+from ipywidgets import Widget, Select
+import pybenzdb as w
+
+
 class Int_Criterion (Criterion):
   """ This class allows for representing criteria based on a single int value
 
-       Attributes:
-         element (Selection): the selection widget for  the criterion is related
-         condition (str): The condition used for the criterion
+      Attributes:
+        element (Widget): The widget used for selecting a value
+        condition (Select): The widget used for selecting the operator
    """
-  def __init__ (self, key: str, description: str, min_value: int, max_value: int) -> None:
-    """ initializes the criterion
-      Args:
-        key (str): The key describing the criterion
-        description (str): The description of the criterion
-        min_value (int): The minimum value for the criterion
-        max_value (int): The maximum value for the criterion
 
-      Returns:
-        None
+  def __init__ (self, key: str, description: str, min_value: int, max_value: int) -> None:
+    """ Initializes the criterion
+
+        Args:
+          key (str): The key describing the criterion
+          description (str): The description of the criterion
+          min_value (int): The minimum value for the criterion
+          max_value (int): The maximum value for the criterion
     """
     super().__init__(key, description)
 
@@ -28,7 +32,7 @@ class Int_Criterion (Criterion):
 
 
   def get_criterion (self) -> str:
-    """ returns the JSON string corresponding to the criterion, an empty string if the criterion is not set
+    """ Returns the JSON string corresponding to the criterion, or an empty string if the criterion is not set
 
         Returns:
           str: The JSON string corresponding to the criterion or an empty string if the criterion is not set

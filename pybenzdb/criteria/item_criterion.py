@@ -1,8 +1,22 @@
+from pybenzdb.criteria.criterion import Criterion
+
+
 class Item_Criterion (Criterion):
-  """ This class allows for representing criterions based on list of values """
+  """ This class allows for representing criteria based on list of values
+
+      Attributes:
+        element (Select): The widget used for selecting a value among the given list of values
+        condition (Select): The widget used for selecting the operator
+  """
 
   def __init__ (self, key: str, description: str, values: list):
-    """ initializes the criterion """
+    """ Initializes the criterion
+
+        Args:
+          key (str): The key describing the criterion
+          description (str): The description of the criterion
+          values (list): The list of possible values for the criterion
+    """
     super().__init__(key, description)
 
     self.__element =  w.Select(options=values, description="", disabled=False,rows=1)
@@ -15,7 +29,11 @@ class Item_Criterion (Criterion):
 
 
   def get_criterion (self) -> str:
-    """ returns the JSON string corresponding to the criterion, an empty string if the criterion is not set """
+    """ Returns the JSON string corresponding to the criterion, or an empty string if the criterion is not set
+
+        Returns:
+          str: The JSON string corresponding to the criterion or an empty string if the criterion is not set
+    """
     if self.__condition.value == "not set":
       return ""
     else:
