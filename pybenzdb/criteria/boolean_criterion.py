@@ -2,7 +2,12 @@ from pybenzdb.criteria.criterion import Criterion
 
 
 class Boolean_Criterion (Criterion):
-  """ This class allows for representing criteria based on Boolean value """
+  """ This class allows for representing criteria based on Boolean value.
+
+      Attributes:
+        element (Widget): The widget used for selecting a value among the given list of values
+        condition (Select): The widget used for selecting the operator
+  """
 
   def __init__ (self, key: str, description: str):
     """ Initializes the criterion

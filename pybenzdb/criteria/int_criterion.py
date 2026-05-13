@@ -4,7 +4,7 @@ import pybenzdb as w
 
 
 class Int_Criterion (Criterion):
-  """ This class allows for representing criteria based on a single int value
+  """ This class allows for representing criteria based on a single int value.
 
       Attributes:
         element (Widget): The widget used for selecting a value

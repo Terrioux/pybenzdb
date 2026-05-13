@@ -2,10 +2,10 @@ from pybenzdb.criteria.criterion import Criterion
 
 
 class View_Criterion (Criterion):
-  """ This class allows for representing the desired view
+  """ This class allows for representing the desired view.
 
-    Attributes:
-      element (Select): The widget used for selecting the desired view
+      Attributes:
+        element (Select): The widget used for selecting the desired view
   """
 
   def __init__ (self, key: str, description: str):

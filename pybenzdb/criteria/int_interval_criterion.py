@@ -3,7 +3,7 @@ import ipywidgets as w
 
 
 class Int_Interval_Criterion (Criterion):
-  """ This class allows for representing criteria based on interval of int values
+  """ This class allows for representing criteria based on interval of int values.
 
       Attributes:
         condition (Select): The widget used for selecting the operator

@@ -2,13 +2,18 @@ from pybenzdb.criteria.criterion import Criterion
 
 
 class Query_Criterion (Criterion):
-  """ This class allows for representing the desired query """
+  """ This class allows for representing the desired query.
+
+      Attributes:
+        element (Select): The widget used for selecting the desired query
+  """
 
   def __init__ (self, key: str, description: str):
     """ Initializes the criterion
 
-        Attributes:
-          element (Select): The widget used for selecting the desired query
+        Args:
+          key (str): The key describing the criterion
+          description (str): The description of the criterion
     """
     super().__init__(key, description)
 

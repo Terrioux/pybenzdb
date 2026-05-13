@@ -2,8 +2,8 @@ from pybenzdb.criteria.criterion import Criterion
 import ipywidgets as w
 
 
-class Interval_Criterion (Criterion):
-  """ This class allows for representing criteria based on interval of float value "
+class Float_Interval_Criterion (Criterion):
+  """ This class allows for representing criteria based on interval of float value.
 
       Attributes:
         element1 (float): The lower bound of the interval used for the criterion
@@ -16,6 +16,8 @@ class Interval_Criterion (Criterion):
         Args:
           key (str): The key describing the criterion
           description (str): The description of the criterion
+          min_value (float): The lower bound of the interval used for the criterion
+          max_value (float): The upper bound of the interval used for the criterion
     """
     super().__init__(key, description)
 

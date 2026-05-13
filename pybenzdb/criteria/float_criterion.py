@@ -2,7 +2,12 @@ from pybenzdb.criteria.criterion import Criterion
 
 
 class Float_Criterion (Criterion):
-  """ This class allows for representing criteria based on float value """
+  """ This class allows for representing criteria based on float value.
+
+      Attributes:
+        element (Widget): The widget used for selecting a value among the given list of values
+        condition (Select): The widget used for selecting the operator
+  """
 
   def __init__ (self, key: str, description: str, min_value: float, max_value: float):
     """ Initializes the criterion
@@ -10,6 +15,8 @@ class Float_Criterion (Criterion):
         Args:
           key (str): The key describing the criterion
           description (str): The description of the criterion
+          min_value (float): The lower bound of the interval used for the criterion
+          max_value (float): The upper bound of the interval used for the criterion
     """
     super().__init__(key, description)
 
@@ -25,8 +32,8 @@ class Float_Criterion (Criterion):
   def get_criterion (self) -> str:
     """ Returns the JSON string corresponding to the criterion, or an empty string if the criterion is not set
 
-            Returns:
-              str: The JSON string corresponding to the criterion or an empty string if the criterion is not set
+        Returns:
+          str: The JSON string corresponding to the criterion or an empty string if the criterion is not set
     """
     if self.__condition.value == "not set":
       return ""

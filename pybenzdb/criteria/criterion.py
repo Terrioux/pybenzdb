@@ -1,7 +1,7 @@
 from ipywidgets import Widget
 
 class Criterion:
-  """ This class allows for representing criteria
+  """ This class allows for representing criteria.
 
       Attributes:
         key (str): The key describing the criterion

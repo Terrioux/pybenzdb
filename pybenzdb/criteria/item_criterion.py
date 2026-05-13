@@ -2,7 +2,7 @@ from pybenzdb.criteria.criterion import Criterion
 
 
 class Item_Criterion (Criterion):
-  """ This class allows for representing criteria based on list of values
+  """ This class allows for representing criteria based on list of values.
 
       Attributes:
         element (Select): The widget used for selecting a value among the given list of values

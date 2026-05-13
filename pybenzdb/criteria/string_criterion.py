@@ -2,7 +2,7 @@ from pybenzdb.criteria.criterion import Criterion
 
 
 class String_Criterion (Criterion):
-  """ This class allows for representing criteria based on string value
+  """ This class allows for representing criteria based on string value.
 
       Attributes:
         element (Widget): The widget used for selecting a value
