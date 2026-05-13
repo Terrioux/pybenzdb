@@ -1,15 +1,23 @@
-class IR_Display_IR (Display):
-  """ This class allows for displaying benzenoid information from IR query """
+from matplotlib import pyplot as plt
+from pybenzdb.displays.display import Display
 
-  def __init__ (self, info: dict):
-    """ initializes the display tool """
+
+class IR_Display (Display):
+  """ This class allows for displaying benzenoid information from IR query. """
+
+  def __init__ (self, info: dict) -> None:
+    """ Initializes the display tool with the provided information
+
+        Args:
+          info (str): The information about the considered benzenoid
+    """
     super().__init__(info)
     self.add_data ("Final energy", self.get_information("finalEnergy"))
     self.add_data ("Zero Point Energy", self.get_information("zeroPointEnergy"))
 
 
   def display (self) -> None:
-    """ displays the information """
+    """ Displays the information """
     super().display()
 
     x = [float(v) for v in self.get_information("frequencies").split(" ")]

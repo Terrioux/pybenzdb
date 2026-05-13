@@ -1,11 +1,27 @@
-class Display:
-  """ This class allows for displaying benzenoid information """
+import IPython as ip
+import jupyter_jsmol as Jsmol
+import pandas as pd
+import base64
+import io
+from PIL import Image
 
-  def __init__ (self, info: dict):
-    """ initializes the display tool """
+class Display:
+  """ This class allows for displaying the information of a given benzenoid.
+
+      Attributes:
+        information (dict): The information about a given benzenoid
+        data (dict): The dictionary containing the information
+  """
+
+  def __init__ (self, info: dict) -> None:
+    """ Initializes the display tool with the provided information
+
+        Args:
+          info (str): The information about the considered benzenoid
+    """
     self.__information = info
     self.__data = {}
-    self.add_data ("Benzenoid id", seldf.get_information("idBenzenoid"))
+    self.add_data ("Benzenoid id", self.get_information("idBenzenoid"))
     self.add_data ("InChI", self.get_information("inchi"))
     self.add_data ("SMILES", self.get_information("smiles"))
     self.add_data ("SELFIES", self.get_information("selfies"))
@@ -19,12 +35,17 @@ class Display:
 
 
   def add_data (self, label, value) -> None:
-    """ adds a label to display with its corresponding value """
+    """ Adds a label to display with its corresponding value
+
+        Args:
+          label (str): The label we want to add
+          value (str): The value related to the label
+    """
     self.__data [label] = [value]
 
 
   def display (self) -> None:
-    """ displays the information """
+    """ Displays the information """
     self.__df = pd.DataFrame(self.__data)
     self.__df.index = [""]
 
@@ -33,17 +54,25 @@ class Display:
 
 
   def display_molecule (self) -> None:
-    """ displays the molecule thanks to Jsmol """
+    """ Displays the molecule thanks to Jsmol """
     view = Jsmol.JsmolView.from_str(str(self.get_information("nbCarbons")+self.get_information("nbHydrogens"))+"\nComment\n"+self.get_information("geometry"))
     ip.display.display(view)
 
 
   def display_image (self, str64: str) -> None:
-    """ displays the base-64 image defined by str64 """
+    """ Displays the base-64 image defined by str64 
+    
+        Args:
+          str64 (str): The base-64 image to display
+    """
     img = Image.open(io.BytesIO(base64.b64decode(str64)))
     ip.display.display(img)
 
 
   def get_information (self, key) -> dict:
-    """ returns the information """
+    """ Returns the information related to the given key
+
+        Args:
+           key (str): The key of the information we want to get
+    """
     return self.__information[key]

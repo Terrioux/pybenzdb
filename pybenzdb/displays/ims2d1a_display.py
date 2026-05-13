@@ -1,12 +1,19 @@
-class IMS2D1A_Display (Display):
-  """ This class allows for displaying benzenoid information from IMS2D1A query """
+from pybenzdb.displays.display import Display
 
-  def __init__ (self, info: dict):
-    """ initializes the display tool """
+
+class IMS2D1A_Display (Display):
+  """ This class allows for displaying benzenoid information from IMS2D1A query. """
+
+  def __init__ (self, info: dict) -> None:
+    """ Initializes the display tool with the provided information
+
+      Args:
+        info (str): The information about the considered benzenoid
+    """
     super().__init__(info)
     self.add_data ("Type", self.get_information("type"))
 
   def display (self) -> None:
-    """ displays the information """
+    """ Displays the information """
     super().display()
     self.display_image(self.get_information("picture"))

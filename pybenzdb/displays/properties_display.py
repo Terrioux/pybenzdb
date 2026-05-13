@@ -1,8 +1,15 @@
+from pybenzdb.displays.display import Display
+
+
 class Properties_Display (Display):
-  """ This class allows for displaying benzenoid information from properties query """
+  """ This class allows for displaying benzenoid information from properties query. """
 
   def __init__ (self, info: dict):
-    """ initializes the display tool """
+    """ Initializes the display tool with the provided information
+
+      Args:
+        info (str): The information about the considered benzenoid
+    """
     super().__init__(info)
     yesno = ["no","yes"]
     self.add_data ("Catacondensed", yesno[self.get_information("catacondensed")])
