@@ -8,7 +8,7 @@ class Clar_Covers_Display (Display):
     """ Initializes the display tool with the provided information
 
       Args:
-        info (str): The information about the considered benzenoid
+        info (dict): The information about the considered benzenoid
     """
     super().display()
     self.display_image(self.get_information("clarCover"))

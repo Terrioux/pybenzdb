@@ -17,7 +17,7 @@ class Display:
     """ Initializes the display tool with the provided information
 
         Args:
-          info (str): The information about the considered benzenoid
+          info (dict): The information about the considered benzenoid
     """
     self.__information = info
     self.__data = {}

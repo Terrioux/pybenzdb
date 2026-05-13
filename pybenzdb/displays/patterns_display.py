@@ -8,7 +8,7 @@ class Patterns_Display (Display):
     """ Initializes the display tool with the provided information
 
       Args:
-        info (str): The information about the considered benzenoid
+        info (dict): The information about the considered benzenoid
     """
     super().__init__(info)
     self.add_data ("cove", self.get_information("cove"))
