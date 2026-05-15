@@ -1,6 +1,6 @@
 from pybenzdb.criteria.criterion import Criterion
 from ipywidgets import Widget, Select
-import pybenzdb as w
+import ipywidgets as w
 
 
 class Int_Criterion (Criterion):

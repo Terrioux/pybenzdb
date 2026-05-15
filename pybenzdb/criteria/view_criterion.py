@@ -1,5 +1,5 @@
 from pybenzdb.criteria.criterion import Criterion
-
+import ipywidgets as w
 
 class View_Criterion (Criterion):
   """ This class allows for representing the desired view.

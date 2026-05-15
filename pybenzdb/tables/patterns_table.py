@@ -1,3 +1,5 @@
+from pybenzdb.tables.table import Table
+
 class Patterns_Table (Table):
   """ This class allows for displaying a table containing benzenoid information from patterns query. """
 
