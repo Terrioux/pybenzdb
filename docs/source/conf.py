@@ -19,9 +19,9 @@ author = 'BenzDB Team'
 sys.path.insert(0, os.path.abspath('../../'))
 
 extensions = [
-  'sphinx.ext.autodoc',      # Obligatoire pour automodule
-  'sphinx.ext.viewcode',     # Optionnel : ajoute des liens vers le code source
-  'sphinx.ext.napoleon',     # Optionnel : support des docstrings Google/NumPy
+  'sphinx.ext.autodoc',
+  'sphinx.ext.viewcode',
+  'sphinx.ext.napoleon',
   'sphinx.ext.autosummary'
 ]
 
