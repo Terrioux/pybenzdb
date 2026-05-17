@@ -1,4 +1,5 @@
 .idea
 __pycache__
+docs/build
 dist
 pybenzdb.egg-info
