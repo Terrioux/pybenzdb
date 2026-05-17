@@ -1,0 +1,184 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pybenzdb.tables.table &mdash; pybenzdb  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pybenzdb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pybenzdb</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pybenzdb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pybenzdb.tables.table</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pybenzdb.tables.table</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">IPython</span> <span class="k">as</span> <span class="nn">ip</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="Table">
+<a class="viewcode-back" href="../../../pybenzdb.tables.table.html#pybenzdb.tables.table.Table">[docs]</a>
+<span class="k">class</span> <span class="nc">Table</span><span class="p">:</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot; This class allows for displaying a table containing benzenoid information.</span>
+
+<span class="sd">      Attributes:</span>
+<span class="sd">         data (dict): the data that will be displayed as a table</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Initializes the display tool &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__data</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<div class="viewcode-block" id="Table.add_data">
+<a class="viewcode-back" href="../../../pybenzdb.tables.table.html#pybenzdb.tables.table.Table.add_data">[docs]</a>
+  <span class="k">def</span> <span class="nf">add_data</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Adds a label to display with its corresponding value</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          label (str): The label we want to add</span>
+<span class="sd">          value (str): The value related to the label</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__data</span> <span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="Table.add_row">
+<a class="viewcode-back" href="../../../pybenzdb.tables.table.html#pybenzdb.tables.table.Table.add_row">[docs]</a>
+  <span class="k">def</span> <span class="nf">add_row</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Adds a row based on the given information &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;Benzenoid id&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;idBenzenoid&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;InChI&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;inchi&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;SMILES&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;smiles&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;SELFIES&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;selfies&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;Label&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;#hexagons&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;nbHexagons&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;#carbons&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;nbCarbons&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;#hydrogens&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;nbHydrogens&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;Weight&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;Irregularity&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;irregularity&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_data</span> <span class="p">(</span><span class="s2">&quot;Diameter&quot;</span><span class="p">,</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;diameter&quot;</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="Table.print">
+<a class="viewcode-back" href="../../../pybenzdb.tables.table.html#pybenzdb.tables.table.Table.print">[docs]</a>
+  <span class="k">def</span> <span class="nf">print</span> <span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Prints the table &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">)</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">ip</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__df</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Table.save">
+<a class="viewcode-back" href="../../../pybenzdb.tables.table.html#pybenzdb.tables.table.Table.save">[docs]</a>
+  <span class="k">def</span> <span class="nf">save</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Saves the data as a xlsx file whose name is filename</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          filename (str): The filename to save the data to</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+      <span class="n">df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span><span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;result&quot;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+      <span class="c1"># format definitions</span>
+      <span class="n">workbook</span>  <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">book</span>
+      <span class="n">format_column_title</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s1">&#39;num_format&#39;</span><span class="p">:</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="s1">&#39;align&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+      <span class="n">sheet</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span>
+      <span class="n">sheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span><span class="n">format_column_title</span><span class="p">)</span>
+      <span class="n">sheet</span><span class="o">.</span><span class="n">freeze_panes</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="n">sheet</span><span class="o">.</span><span class="n">autofit</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, BenzDB Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
