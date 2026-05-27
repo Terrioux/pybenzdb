@@ -50,6 +50,9 @@ class IR_Display (Display):
     x = [float(v) for v in self.get_information("frequencies").split(" ")]
     y = [float(v) for v in self.get_information("intensities").split(" ")]
 
+    y = [y[i] for i in range(len(x)) if x[i] >= 0]
+    x = [v for v in x if v >= 0]
+
     plt.cla()
     plt.stem(x, y, linefmt='-', markerfmt="")
     plt.xlabel('frequencies ($cm^{-1}$)')
