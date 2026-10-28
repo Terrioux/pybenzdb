@@ -66,6 +66,7 @@ class Display:
     view.zoomTo()
     view.zoom(0.9)
     view.show()
+    Download_Button ("XYZ","molecule_"+str(self.get_information("idBenzenoid"))+".xyz",xyz_data)
 
 
   def display_image (self, str64: str) -> None:
