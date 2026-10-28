@@ -166,12 +166,12 @@ class Form:
       print("Number of molecules:", self.get_data())
 
     elif demand_type == "json":
-      self.__download_button("JSON", "query.json", self.get_json_string())
+      Download_Button("JSON", "query.json", self.get_json_string())
       print("JSON query:")
       print(self.get_json_string())
 
     elif demand_type == "result":
-      self.__download_button("JSON", "result.json", str(self.get_data()).replace("'", '"'))
+      Download_Button("JSON", "result.json", str(self.get_data()).replace("'", '"'))
       print("JSON result (100,000 first characters):")
       print(str(self.get_data())[0:100_000].replace("'", '"'))
 
