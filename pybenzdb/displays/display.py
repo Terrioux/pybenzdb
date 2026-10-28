@@ -1,9 +1,13 @@
 import IPython as ip
-import jupyter_jsmol as Jsmol
+import py3Dmol
+
 import pandas as pd
 import base64
 import io
 from PIL import Image
+
+from pybenzdb.forms.download_button import Download_Button
+
 
 class Display:
   """ This class allows for displaying the information of a given benzenoid.
@@ -54,9 +58,14 @@ class Display:
 
 
   def display_molecule (self) -> None:
-    """ Displays the molecule thanks to Jsmol """
-    view = Jsmol.JsmolView.from_str(str(self.get_information("nbCarbons")+self.get_information("nbHydrogens"))+"\nComment\n"+self.get_information("geometry"))
-    ip.display.display(view)
+    """ displays the molecule thanks to py3Dmol """
+    view = py3Dmol.view()
+    xyz_data = str(self.get_information("nbCarbons") + self.get_information("nbHydrogens")) + "\nmolecule "+str(self.get_information("idBenzenoid"))+"\n" + self.get_information("geometry")
+    view.addModel(xyz_data, "xyz")
+    view.setStyle({"stick": {"radius": 0.15}, "sphere": {"scale": 0.3}})
+    view.zoomTo()
+    view.zoom(0.9)
+    view.show()
 
 
   def display_image (self, str64: str) -> None:

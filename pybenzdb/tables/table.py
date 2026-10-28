@@ -1,5 +1,6 @@
 import IPython as ip
 import pandas as pd
+import io
 
 
 class Table:
@@ -49,14 +50,13 @@ class Table:
     ip.display.display(self.__df)
 
 
-  def save (self, filename) -> None:
-    """ Saves the data as a xlsx file whose name is filename
-
-        Args:
-          filename (str): The filename to save the data to
+  def save (self) -> None:
+    """ Saves the data as a xlsx file in a buffer and returns it
     """
+    buffer = io.BytesIO()
     df = pd.DataFrame(self.__data)
-    with pd.ExcelWriter(filename) as writer:
+
+    with pd.ExcelWriter(buffer) as writer:
       df.to_excel(writer,sheet_name="result",index=False, header=True)
 
       # format definitions
@@ -66,3 +66,5 @@ class Table:
       sheet.set_row(0, None,format_column_title)
       sheet.freeze_panes(0, 1)
       sheet.autofit()
+
+    return buffer.getvalue()

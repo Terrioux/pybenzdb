@@ -28,9 +28,7 @@ from pybenzdb.displays.patterns_display import Patterns_Display
 from pybenzdb.displays.properties_display import Properties_Display
 from pybenzdb.displays.nics_display import NICS_Display
 
-import IPython as ip
-import base64
-
+from pybenzdb.forms.download_button import Download_Button
 
 class Form:
   """ This class manages a form that allows for querying the BenzDB database. """
@@ -41,8 +39,11 @@ class Form:
     self.__demand_type = None   # the type of demand
     self.__json_string = None   # the query as a JSON string
     self.__data = None          # the data related to the query (if the query succeeds)
+    self.__output = w.Output()
 
     self.create_form()
+
+    display(self.__output)
 
 
   def create_form(self) -> None:
@@ -114,53 +115,6 @@ class Form:
     self.add_group([self.__criteria[24:26],[count_btn, getdata_btn, getquery_btn, getresult_btn]],"Query choices")
 
 
-  def __download_button(self, label: str, filename: str, data: str) -> None:
-    """ displays a download button with the given label that saves the given data in the desired filename as an image
-
-        Args:
-          label (str): The label of the button
-          filename (str): The name of the file in which to save the data
-          data (str): The data to download
-    """
-    # we encode the data
-    encoded_data = base64.b64encode(data.encode()).decode()
-
-    # we create the download button
-    button = '''<html>
-      <body>
-      <a download="''' + filename + '''" href="data:text/''' + filename.split(".")[1] + ''';base64,''' + encoded_data + '''">
-      <button class="p-Widget jupyter-widgets jupyter-button widget-button mod-warning">Download ''' + label + ''' file</button>
-      </a>
-      </body>
-      </html>
-      '''
-
-    ip.display.display(w.HTML(button))
-
-
-  def __download_button_xlsx(self, label: str, filename: str, data: list) -> None:
-    """ displays a download button with the given label that saves the given data in the desired filename as a xlsx file
-
-        Args:
-          label (str): The label of the button
-          filename (str): The name of the file in which to save the data
-          data (str): The data to download
-    """
-    # we save the data
-    data.save(filename)
-
-    # we create the download button
-    button = '''<html>
-      <body>
-      <a download="''' + filename + '''" href="''' + filename + '''">
-      <button class="p-Widget jupyter-widgets jupyter-button widget-button mod-warning">Download ''' + label + ''' file</button>
-      </a>
-      </body>
-      </html>
-      '''
-
-    ip.display.display(w.HTML(button))
-
 
   def __process(self) -> None:
     """ Processes the query and sets the corresponding attributes """
@@ -186,7 +140,7 @@ class Form:
         for molecule in data:
           d.add_row(molecule)
 
-        self.__download_button_xlsx("XLSX", query + ".xlsx", d)
+        Download_Button ("XLSX", query + ".xlsx", d)
         d.print()
       elif view == "one by one":
         for molecule in data:
@@ -228,43 +182,46 @@ class Form:
         Args:
           btn (Button): the button that specifies the query to perform
     """
-    # we identify the type of demand
-    if btn.description == "Count":
-      self.__demand_type = "count"
-    elif btn.description == "Get Data":
-      self.__demand_type = "data"
-    elif btn.description == "Get JSON Query":
-      self.__demand_type = "json"
-    elif btn.description == "Get JSON Result":
-      self.__demand_type = "result"
-    else:
-      self.__demand_type = "unknown"
+    self.__output.clear_output()
 
-    # we build the JSON string
-    self.__json_string = "{\n"
-    for c in self.__criteria:
-      if isinstance(c,Query_Criterion):
-        self.__query = c.get_criterion()
-      elif isinstance(c,View_Criterion):
-        self.__view = c.get_criterion()
+    with self.__output:
+      # we identify the type of demand
+      if btn.description == "Count":
+        self.__demand_type = "count"
+      elif btn.description == "Get Data":
+        self.__demand_type = "data"
+      elif btn.description == "Get JSON Query":
+        self.__demand_type = "json"
+      elif btn.description == "Get JSON Result":
+        self.__demand_type = "result"
       else:
-        s = c.get_criterion()
-        if len(s) > 0:
-          if len(self.__json_string) > 3:
-            self.__json_string += ",\n"
-          self.__json_string += "\t" + s
-    self.__json_string += "\n}"
+        self.__demand_type = "unknown"
 
-    if self.__demand_type in ["data", "result"]:
-      response = requests.post("https://benzenoids.lis-lab.fr/find_"+self.__query, json= json.loads(self.__json_string))
-    elif self.__demand_type == "count":
-      response = requests.post("https://benzenoids.lis-lab.fr/count_"+self.__query, json= json.loads(self.__json_string))
+      # we build the JSON string
+      self.__json_string = "{\n"
+      for c in self.__criteria:
+        if isinstance(c,Query_Criterion):
+          self.__query = c.get_criterion()
+        elif isinstance(c,View_Criterion):
+          self.__view = c.get_criterion()
+        else:
+          s = c.get_criterion()
+          if len(s) > 0:
+            if len(self.__json_string) > 3:
+              self.__json_string += ",\n"
+            self.__json_string += "\t" + s
+      self.__json_string += "\n}"
 
-    if self.__demand_type in ["data", "count", "result"]:
-      if response.status_code == 200:
-        self.__data = response.json()
+      if self.__demand_type in ["data", "result"]:
+        response = requests.post("https://benzenoids.lis-lab.fr/find_"+self.__query, json= json.loads(self.__json_string))
+      elif self.__demand_type == "count":
+        response = requests.post("https://benzenoids.lis-lab.fr/count_"+self.__query, json= json.loads(self.__json_string))
 
-    self.__process()
+      if self.__demand_type in ["data", "count", "result"]:
+        if response.status_code == 200:
+          self.__data = response.json()
+
+      self.__process()
 
 
   def add_group (self, criteria:list, title: str) -> None:
